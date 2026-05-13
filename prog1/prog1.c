@@ -56,6 +56,23 @@ void del_f(int n,Employee e[],int del)
         printf("Record found deleted");
     }
 }
+void search_mth(int m,Employee e[])
+{
+    Employee temp;
+    FILE *fp=fopen("Employee.dat","rb");
+    if(fp==NULL)
+    {
+        printf("Enter valid file");
+        return;
+    }
+    fseek(fp,m*sizeof(Employee),SEEK_SET);
+    if(fread(&temp,m*sizeof(Employee),1,fp)==1);
+    printf("mth record: %d\nID: %d\nName: %s\nSalary: %d\n",m,temp.id,temp.name,temp.salary);
+    else
+    printf("Invalid file");
+    return 0;
+    fclose(fp);
+}
 
 int main()
 {
@@ -71,5 +88,8 @@ int main()
     printf("Which file you need to delete?");
     scanf("%d",&del);
     del_f(n,e,del);
+    printf("Enter mth record to search: ");
+    scanf("%d",&m);
+    search_mth(m,e);
     fclose(fp);
 }
